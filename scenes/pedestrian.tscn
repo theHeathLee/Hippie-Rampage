@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmpn3mg06ldfi"]
+
+[ext_resource type="Script" uid="uid://bwk3ngwucncxg" path="res://scripts/pedestrian.gd" id="1_vp5dr"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gee14"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0tnpc"]
+
+[node name="pedestrian" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+mass = 5.0
+can_sleep = false
+script = ExtResource("1_vp5dr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CapsuleMesh_gee14")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_0tnpc")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
