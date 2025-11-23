@@ -1,8 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://tn4sgoqfsye"]
+[gd_scene load_steps=13 format=3 uid="uid://tn4sgoqfsye"]
 
 [ext_resource type="Script" uid="uid://cielph2ssxnwp" path="res://scripts/bus.gd" id="1_uwrxv"]
+[ext_resource type="AudioStream" uid="uid://4nle5fbmu464" path="res://assets/audio/motor.ogg" id="2_p57ef"]
 [ext_resource type="Texture2D" uid="uid://caa00mf4vsrs5" path="res://assets/textures/wood_chips_plate-color.png" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://dw5a3rm7himnv" path="res://scripts/camera_pivot.gd" id="3_lnu2h"]
+[ext_resource type="AudioStream" uid="uid://d3drtv7ll8fjb" path="res://assets/audio/drift.ogg" id="3_u5sy4"]
+[ext_resource type="AudioStream" uid="uid://dkqtxc8chkj76" path="res://assets/audio/boost.ogg" id="4_gee14"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yqjtg"]
 
@@ -23,7 +26,7 @@ albedo_texture = ExtResource("2_yqjtg")
 [node name="objects" type="Node3D" parent="."]
 
 [node name="bus" type="CharacterBody3D" parent="objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, 0)
 script = ExtResource("1_uwrxv")
 
 [node name="collider" type="CollisionShape3D" parent="objects/bus"]
@@ -35,25 +38,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
 mesh = SubResource("BoxMesh_8cj0n")
 surface_material_override/0 = SubResource("StandardMaterial3D_uwrxv")
 
+[node name="enginesound" type="AudioStreamPlayer3D" parent="objects/bus"]
+stream = ExtResource("2_p57ef")
+
+[node name="driftsound" type="AudioStreamPlayer3D" parent="objects/bus"]
+stream = ExtResource("3_u5sy4")
+
+[node name="boostsound" type="AudioStreamPlayer3D" parent="objects/bus"]
+stream = ExtResource("4_gee14")
+
 [node name="StaticBody3D" type="StaticBody3D" parent="objects"]
 
 [node name="floor" type="MeshInstance3D" parent="objects/StaticBody3D"]
-transform = Transform3D(32, 0, 0, 0, 32, 0, 0, 0, 32, 0, -16, 0)
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, -60, 0)
 mesh = SubResource("BoxMesh_uwrxv")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_lnu2h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="objects/StaticBody3D"]
-transform = Transform3D(32, 0, 0, 0, 32, 0, 0, 0, 32, 0, -16, 0)
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, -60, 0)
 shape = SubResource("BoxShape3D_8cj0n")
 
 [node name="camera_pivot" type="Node3D" parent="objects" node_paths=PackedStringArray("target_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.52783, 0)
 script = ExtResource("3_lnu2h")
 target_node = NodePath("../bus")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="objects/camera_pivot"]
 transform = Transform3D(1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 0.5, 0)
-spring_length = 6.0
+spring_length = 12.0
 margin = 0.05
 
 [node name="player_camera" type="Camera3D" parent="objects/camera_pivot/SpringArm3D"]
