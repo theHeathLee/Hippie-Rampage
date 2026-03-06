@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsfa5thvpqdqw"]
+
+[ext_resource type="Script" uid="uid://cielph2ssxnwp" path="res://scripts/bus.gd" id="1_38u8m"]
+[ext_resource type="AudioStream" uid="uid://4nle5fbmu464" path="res://assets/audio/motor.ogg" id="2_6x00d"]
+[ext_resource type="AudioStream" uid="uid://d3drtv7ll8fjb" path="res://assets/audio/drift.ogg" id="3_5urgl"]
+[ext_resource type="AudioStream" uid="uid://dkqtxc8chkj76" path="res://assets/audio/boost.ogg" id="4_uur5s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yqjtg"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8cj0n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uwrxv"]
+albedo_color = Color(0.220136, 0.497346, 0.987794, 1)
+
+[node name="bus" type="CharacterBody3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_38u8m")
+
+[node name="collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_yqjtg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("BoxMesh_8cj0n")
+surface_material_override/0 = SubResource("StandardMaterial3D_uwrxv")
+
+[node name="enginesound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_6x00d")
+
+[node name="driftsound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_5urgl")
+
+[node name="boostsound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_uur5s")
