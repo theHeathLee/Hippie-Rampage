@@ -39,11 +39,13 @@ func _physics_process(delta: float):
 	is_drifting = Input.is_action_pressed("move_handbrake")
 	var is_boosting = Input.is_action_pressed("move_boost")
 
-	# Gravity
+	# Gravity — only dampen Y on flat ground; on slopes let move_and_slide handle it
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
 	else:
-		velocity.y = move_toward(velocity.y, 0, GRAVITY * delta)
+		var floor_normal = get_floor_normal()
+		if floor_normal.y > 0.95:
+			velocity.y = move_toward(velocity.y, 0, GRAVITY * delta)
 
 	var throttle = Input.get_axis("move_up", "move_down")
 	var steering = Input.get_axis("move_left", "move_right")
@@ -99,12 +101,17 @@ func handle_normal_movement(throttle: float, steering: float, delta: float, is_b
 		rotate_y(steering * TURN_SPEED * speed_factor * steer_dir * delta)
 
 	# Traction: blend current velocity toward the facing direction.
-	# This gives the car weight — it doesn't instantly snap to a new heading.
+	# On slopes, project the desired velocity along the floor so the bus rides up naturally.
 	var forward = -transform.basis.z
-	var target_vel_x = forward.x * speed
-	var target_vel_z = forward.z * speed
-	velocity.x = lerp(velocity.x, target_vel_x, TRACTION * delta)
-	velocity.z = lerp(velocity.z, target_vel_z, TRACTION * delta)
+	var desired = Vector3(forward.x * speed, 0.0, forward.z * speed)
+	if is_on_floor():
+		var floor_normal = get_floor_normal()
+		if floor_normal.y < 0.99:
+			desired = desired.slide(floor_normal)
+	velocity.x = lerp(velocity.x, desired.x, TRACTION * delta)
+	velocity.z = lerp(velocity.z, desired.z, TRACTION * delta)
+	if is_on_floor() and get_floor_normal().y < 0.99:
+		velocity.y = lerp(velocity.y, desired.y, TRACTION * delta)
 
 
 func handle_drift_movement(throttle: float, steering: float, delta: float):
@@ -129,7 +136,12 @@ func handle_drift_movement(throttle: float, steering: float, delta: float):
 
 	# Low traction: velocity only weakly follows the new heading, causing the slide.
 	var forward = -transform.basis.z
-	var target_vel_x = forward.x * speed
-	var target_vel_z = forward.z * speed
-	velocity.x = lerp(velocity.x, target_vel_x, DRIFT_TRACTION * delta)
-	velocity.z = lerp(velocity.z, target_vel_z, DRIFT_TRACTION * delta)
+	var desired = Vector3(forward.x * speed, 0.0, forward.z * speed)
+	if is_on_floor():
+		var floor_normal = get_floor_normal()
+		if floor_normal.y < 0.99:
+			desired = desired.slide(floor_normal)
+	velocity.x = lerp(velocity.x, desired.x, DRIFT_TRACTION * delta)
+	velocity.z = lerp(velocity.z, desired.z, DRIFT_TRACTION * delta)
+	if is_on_floor() and get_floor_normal().y < 0.99:
+		velocity.y = lerp(velocity.y, desired.y, DRIFT_TRACTION * delta)
