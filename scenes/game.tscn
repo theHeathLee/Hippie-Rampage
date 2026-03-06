@@ -1,19 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://tn4sgoqfsye"]
+[gd_scene load_steps=9 format=3 uid="uid://tn4sgoqfsye"]
 
-[ext_resource type="Script" uid="uid://cielph2ssxnwp" path="res://scripts/bus.gd" id="1_uwrxv"]
-[ext_resource type="AudioStream" uid="uid://4nle5fbmu464" path="res://assets/audio/motor.ogg" id="2_p57ef"]
+[ext_resource type="PackedScene" uid="uid://bsfa5thvpqdqw" path="res://scenes/bus.tscn" id="1_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://caa00mf4vsrs5" path="res://assets/textures/wood_chips_plate-color.png" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://dw5a3rm7himnv" path="res://scripts/camera_pivot.gd" id="3_lnu2h"]
-[ext_resource type="AudioStream" uid="uid://d3drtv7ll8fjb" path="res://assets/audio/drift.ogg" id="3_u5sy4"]
-[ext_resource type="AudioStream" uid="uid://dkqtxc8chkj76" path="res://assets/audio/boost.ogg" id="4_gee14"]
+[ext_resource type="PackedScene" uid="uid://tfuxuu3bmdnl" path="res://scenes/wall.tscn" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://dmpn3mg06ldfi" path="res://scenes/pedestrian.tscn" id="7_u5sy4"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_yqjtg"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_8cj0n"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uwrxv"]
-albedo_color = Color(0.220136, 0.497346, 0.987794, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_uwrxv"]
 
@@ -26,37 +17,18 @@ albedo_texture = ExtResource("2_yqjtg")
 
 [node name="objects" type="Node3D" parent="."]
 
-[node name="bus" type="CharacterBody3D" parent="objects"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, 0)
-script = ExtResource("1_uwrxv")
+[node name="bus" parent="objects" instance=ExtResource("1_lbhrr")]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0.5, 0)
 
-[node name="collider" type="CollisionShape3D" parent="objects/bus"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("BoxShape3D_yqjtg")
+[node name="Floor" type="StaticBody3D" parent="objects"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="objects/bus"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
-mesh = SubResource("BoxMesh_8cj0n")
-surface_material_override/0 = SubResource("StandardMaterial3D_uwrxv")
-
-[node name="enginesound" type="AudioStreamPlayer3D" parent="objects/bus"]
-stream = ExtResource("2_p57ef")
-
-[node name="driftsound" type="AudioStreamPlayer3D" parent="objects/bus"]
-stream = ExtResource("3_u5sy4")
-
-[node name="boostsound" type="AudioStreamPlayer3D" parent="objects/bus"]
-stream = ExtResource("4_gee14")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="objects"]
-
-[node name="floor" type="MeshInstance3D" parent="objects/StaticBody3D"]
+[node name="floor" type="MeshInstance3D" parent="objects/Floor"]
 transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, -60, 0)
 mesh = SubResource("BoxMesh_uwrxv")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_lnu2h")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="objects/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="objects/Floor"]
 transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, -60, 0)
 shape = SubResource("BoxShape3D_8cj0n")
 
@@ -78,6 +50,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0023, 0.5, -35.8726)
 
 [node name="pedestrian2" parent="objects" instance=ExtResource("7_u5sy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5144, 0.5, 8.98774)
+
+[node name="Wall" parent="objects" instance=ExtResource("5_iywne")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 1, 0)
+
+[node name="Wall2" parent="objects" instance=ExtResource("5_iywne")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 1, 0)
+
+[node name="Wall3" parent="objects" instance=ExtResource("5_iywne")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, -60)
+
+[node name="Wall4" parent="objects" instance=ExtResource("5_iywne")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 60)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.8788, -0.351218, 0.323041, -0.156735, 0.42696, 0.890584, -0.450715, -0.833277, 0.320164, 0, 8.62645, 8.63623)
