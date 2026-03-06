@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxl2x33sggdsf"]
+
+[ext_resource type="Script" uid="uid://ddokgwiwv32lo" path="res://scripts/redneck.gd" id="1_bhuxf"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_74b5h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bhuxf"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_74b5h"]
+size = Vector3(1.2, 2.2, 1.2)
+
+[node name="Redneck" type="RigidBody3D"]
+freeze = true
+freeze_mode = 1
+script = ExtResource("1_bhuxf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_74b5h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_bhuxf")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_74b5h")
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+ignore_time_scale = true
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
