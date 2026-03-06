@@ -52,6 +52,10 @@ move_boost={
 ]
 }
 
+[autoload]
+
+Score="*res://scripts/score.gd"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

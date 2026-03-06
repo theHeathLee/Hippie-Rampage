@@ -14,7 +14,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		var dir = (global_position - body.global_position).normalized()
 		freeze = false
-		
+		Score.add_hit()
 		apply_central_impulse(dir * 15.0 + Vector3.UP * 5.0)
 		
 		# We use a random vector so they don't always spin the same way
