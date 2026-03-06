@@ -1,5 +1,6 @@
 # Hippie Rampage
 
+**Play the game:** https://theheathlee.github.io/Hippie-Rampage/
 
 ## Seth and Heaths game, experimenting with Godot 3d game engine
 
