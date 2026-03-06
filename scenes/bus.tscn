@@ -12,7 +12,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uwrxv"]
 albedo_color = Color(0.220136, 0.497346, 0.987794, 1)
 
-[node name="bus" type="CharacterBody3D"]
+[node name="bus" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_38u8m")
 

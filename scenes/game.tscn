@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://tn4sgoqfsye"]
+[gd_scene load_steps=10 format=3 uid="uid://tn4sgoqfsye"]
 
 [ext_resource type="PackedScene" uid="uid://bsfa5thvpqdqw" path="res://scenes/bus.tscn" id="1_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://caa00mf4vsrs5" path="res://assets/textures/wood_chips_plate-color.png" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://dw5a3rm7himnv" path="res://scripts/camera_pivot.gd" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://tfuxuu3bmdnl" path="res://scenes/wall.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://dxl2x33sggdsf" path="res://scenes/redneck.tscn" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://dmpn3mg06ldfi" path="res://scenes/pedestrian.tscn" id="7_u5sy4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_uwrxv"]
@@ -47,9 +48,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314568, 5.26902)
 
 [node name="pedestrian" parent="objects" instance=ExtResource("7_u5sy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0023, 0.5, -35.8726)
+visible = false
 
 [node name="pedestrian2" parent="objects" instance=ExtResource("7_u5sy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5144, 0.5, 8.98774)
+visible = false
 
 [node name="Wall" parent="objects" instance=ExtResource("5_iywne")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 1, 0)
@@ -62,6 +65,24 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 
 
 [node name="Wall4" parent="objects" instance=ExtResource("5_iywne")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 60)
+
+[node name="Redneck" parent="objects" instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -25)
+
+[node name="Redneck2" parent="objects" instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -27)
+
+[node name="Redneck3" parent="objects" instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -29)
+
+[node name="Redneck5" parent="objects" instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -29)
+
+[node name="Redneck6" parent="objects" instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -29)
+
+[node name="Redneck4" parent="objects" instance=ExtResource("6_p57ef")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -27)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.8788, -0.351218, 0.323041, -0.156735, 0.42696, 0.890584, -0.450715, -0.833277, 0.320164, 0, 8.62645, 8.63623)
