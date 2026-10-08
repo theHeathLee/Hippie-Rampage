@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="512" viewBox="0 0 768 512">
+  <!--
+    Boost ramp skin on Godot's BoxMesh 3x2 grid. Only the top cell (+Y,
+    middle of the bottom row) is seen when driving; its chevrons point left,
+    which is uphill on the ramp.
+  -->
+  <rect width="768" height="512" fill="#e8590c"/>
+  <rect x="256" y="256" width="256" height="256" fill="#ff7a1a"/>
+  <g fill="#ffd43b">
+    <polygon points="300,384 340,300 380,300 340,384 380,468 340,468"/>
+    <polygon points="370,384 410,300 450,300 410,384 450,468 410,468"/>
+    <polygon points="440,384 480,300 512,300 512,312 478,384 512,456 512,468 480,468"/>
+  </g>
+  <rect x="256" y="256" width="256" height="256" fill="none" stroke="#ffd43b" stroke-width="10"/>
+</svg>

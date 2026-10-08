@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dhlfp1pehipp"]
+
+[ext_resource type="Script" uid="uid://dgy1i6y736xkw" path="res://scripts/half_pipe.gd" id="1_hp"]
+
+[node name="HalfPipe" type="StaticBody3D"]
+script = ExtResource("1_hp")
