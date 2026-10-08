@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1i8s8ivoq3gl"]
+
+[ext_resource type="Script" uid="uid://c37rt046beyht" path="res://scripts/cybertruck.gd" id="1_40yi2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_aucrb"]
+size = Vector3(2, 0.6, 1.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_40yi2"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 1.4
+
+[node name="Cybertruck" type="StaticBody3D"]
+script = ExtResource("1_40yi2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.3, 0)
+mesh = SubResource("BoxMesh_aucrb")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_40yi2")
+
+[node name="Muzzle" type="Marker3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
+
+[node name="ShotTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true

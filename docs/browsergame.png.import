@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dumai4fw7tlu2"
-path="res://.godot/imported/browsergame.png-3496961c22fdf4cd1f2160a295ff1c19.ctex"
+path="res://.godot/imported/browsergame.png-87dce5f4d32b4196fe53167cd660fd34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://browsergame/browsergame.png"
-dest_files=["res://.godot/imported/browsergame.png-3496961c22fdf4cd1f2160a295ff1c19.ctex"]
+source_file="res://docs/browsergame.png"
+dest_files=["res://.godot/imported/browsergame.png-87dce5f4d32b4196fe53167cd660fd34.ctex"]
 
 [params]
 

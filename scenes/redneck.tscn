@@ -10,7 +10,7 @@ size = Vector3(1, 2, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_74b5h"]
 size = Vector3(1.2, 2.2, 1.2)
 
-[node name="Redneck" type="RigidBody3D"]
+[node name="Redneck" type="RigidBody3D" groups=["enemy"]]
 freeze = true
 freeze_mode = 1
 script = ExtResource("1_bhuxf")
