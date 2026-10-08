@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1aq3rp8k5jda"]
+
+[ext_resource type="Script" uid="uid://g2dgvov7ayyu" path="res://scripts/building.gd" id="1_n8bkc"]
+[ext_resource type="PackedScene" uid="uid://csck3u0dvxtm3" path="res://scenes/particles_building_debris.tscn" id="2_uvy8r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nk8ba"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nk8ba"]
+albedo_color = Color(0.450023, 0.281033, 0.213419, 1)
+roughness = 0.83
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n8bkc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uvy8r"]
+
+[node name="Building" type="StaticBody3D"]
+script = ExtResource("1_n8bkc")
+particles_debris = ExtResource("2_uvy8r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["building"]]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("BoxMesh_nk8ba")
+surface_material_override/0 = SubResource("StandardMaterial3D_nk8ba")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+visible = false
+shape = SubResource("BoxShape3D_n8bkc")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_uvy8r")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
