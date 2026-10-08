@@ -1,9 +1,9 @@
 @tool
 extends Node3D
 
-# A building made of stacked blocks. The blocks stay frozen until the player
-# drives into the building, then they unfreeze and the ones nearest the bus
-# get knocked away so the floors above collapse.
+# A building made of stacked blocks. The blocks stay frozen (a solid wall)
+# until the player boosts into the building, then they unfreeze and the
+# building topples away from the bus.
 #
 # The blocks are generated in code (and previewed in the editor), so tweak
 # the building with the exports below rather than editing child nodes.
@@ -41,24 +41,34 @@ const BUILDING_TEXTURE = preload("res://assets/textures/building.svg")
 
 var _blocks: Array[RigidBody3D] = []
 var _collapsed := false
+var _area: Area3D
 
 func _ready():
 	_rebuild()
 	if Engine.is_editor_hint():
 		return
 
-	# Trigger zone a bit bigger than the building, so it starts collapsing
-	# just before the bus touches it rather than stopping the bus dead.
+	# Trigger zone a bit bigger than the building, so a boosting bus knocks it
+	# down just before touching it rather than stopping dead.
 	var size = _footprint()
-	var area := Area3D.new()
+	_area = Area3D.new()
 	var area_shape := CollisionShape3D.new()
 	var box := BoxShape3D.new()
 	box.size = Vector3(size.x + 1.5, floors * block_size.y, size.z + 1.5)
 	area_shape.shape = box
 	area_shape.position.y = floors * block_size.y / 2.0
-	area.add_child(area_shape)
-	add_child(area)
-	area.body_entered.connect(_on_area_body_entered)
+	_area.add_child(area_shape)
+	add_child(_area)
+
+# Checked every frame rather than on entering the zone, so boosting while
+# already pressed up against the building still knocks it down.
+func _physics_process(_delta: float):
+	if Engine.is_editor_hint() or _collapsed or not _area:
+		return
+	for body in _area.get_overlapping_bodies():
+		if body.is_in_group("player") and body.is_boosting:
+			_collapse(body)
+			return
 
 func _footprint() -> Vector3:
 	return Vector3(blocks_wide * block_size.x, 0.0, blocks_deep * block_size.z)
@@ -113,9 +123,7 @@ func _spawn_debris(at: Vector3):
 	debris.emitting = true
 	debris.finished.connect(debris.queue_free)
 
-func _on_area_body_entered(body: Node3D) -> void:
-	if _collapsed or not body.is_in_group("player"):
-		return
+func _collapse(body: CharacterBody3D) -> void:
 	_collapsed = true
 	Score.add_hit()
 	# Debris where the bus hits, and a second burst from the base as it comes down.

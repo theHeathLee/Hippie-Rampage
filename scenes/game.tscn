@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dmpn3mg06ldfi" path="res://scenes/pedestrian.tscn" id="7_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://c8bldng0hippe" path="res://scenes/building.tscn" id="8_bldg"]
 [ext_resource type="PackedScene" uid="uid://b3prsn0hippe" path="res://scenes/person.tscn" id="9_prsn"]
+[ext_resource type="Script" uid="uid://cwfxjarpxsyrl" path="res://scripts/boost_gauge.gd" id="10_gauge"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_uwrxv"]
 size = Vector3(1, 0.001, 1)
@@ -236,6 +237,24 @@ look_seed = 33
 transform = Transform3D(0.9991, 0, -0.0434, 0, 1, 0, 0.0434, 0, 0.9991, 20.7, 0, -19.1)
 outfit = 2
 look_seed = 34
+
+[node name="hud" type="CanvasLayer" parent="."]
+
+[node name="BoostGauge" type="Control" parent="hud"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -200.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("10_gauge")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_amb")

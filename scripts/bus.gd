@@ -15,6 +15,10 @@ const TRACTION = 7.0
 const BOOST_ACCELERATION = 40.0
 const BOOST_MAX_SPEED = 25.0
 const BOOST_DECAY_RATE = 10.0
+# Boost meter: filled by drifting, drained by boosting.
+const BOOST_MAX = 100.0
+const BOOST_DRAIN_RATE = 33.0      # meter per second while boosting (~3 s from full)
+const DRIFT_CHARGE_RATE = 6.0      # meter per second, per m/s of sideways slide
 
 # --- Drift Constants ---
 # Low traction during drift so the car slides sideways (skid/fishtail).
@@ -29,6 +33,10 @@ const PUSH_STRENGTH = 0.15
 # --- Variables ---
 var speed = 0.0
 var is_drifting = false
+# True only while actually boosting (button held, meter not empty, not drifting).
+# Buildings check this to decide whether to collapse.
+var is_boosting = false
+var boost_meter = 0.0
 var current_limit = 0.0
 
 # --- Audio References ---
@@ -41,7 +49,9 @@ func _ready():
 
 func _physics_process(delta: float):
 	is_drifting = Input.is_action_pressed("move_handbrake")
-	var is_boosting = Input.is_action_pressed("move_boost")
+	is_boosting = Input.is_action_pressed("move_boost") and not is_drifting and boost_meter > 0.0
+	if is_boosting:
+		boost_meter = max(boost_meter - BOOST_DRAIN_RATE * delta, 0.0)
 
 	# Gravity — only dampen Y on flat ground; on slopes let move_and_slide handle it
 	if not is_on_floor():
@@ -72,6 +82,11 @@ func _physics_process(delta: float):
 	move_and_slide()
 	push_loose_bodies()
 
+	# Drifting charges the boost meter: the harder the bus slides sideways, the faster it fills.
+	if is_drifting and is_on_floor():
+		var slide_speed = abs(velocity.dot(global_basis.x))
+		boost_meter = min(boost_meter + slide_speed * DRIFT_CHARGE_RATE * delta, BOOST_MAX)
+
 # Shove unfrozen rigid bodies out of the way instead of stopping dead against them.
 func push_loose_bodies():
 	for i in get_slide_collision_count():
@@ -82,14 +97,14 @@ func push_loose_bodies():
 
 # --- Movement Functions ---
 
-func handle_normal_movement(throttle: float, steering: float, delta: float, is_boosting: bool):
+func handle_normal_movement(throttle: float, steering: float, delta: float, boosting: bool):
 	if drift_sound.is_playing():
 		drift_sound.stop()
 
 	var current_accel = ACCELERATION
 	var target_limit = MAX_SPEED
 
-	if is_boosting:
+	if boosting:
 		if not boost_sound.is_playing():
 			boost_sound.play()
 		current_accel = BOOST_ACCELERATION
