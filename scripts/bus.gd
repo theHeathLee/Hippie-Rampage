@@ -47,8 +47,9 @@ func _physics_process(delta: float):
 		if floor_normal.y > 0.95:
 			velocity.y = move_toward(velocity.y, 0, GRAVITY * delta)
 
-	var throttle = Input.get_axis("move_up", "move_down")
-	var steering = Input.get_axis("move_left", "move_right")
+	# Forward is -Z: up gives positive speed, right gives a clockwise (negative) yaw.
+	var throttle = Input.get_axis("move_down", "move_up")
+	var steering = Input.get_axis("move_right", "move_left")
 
 	if is_drifting:
 		handle_drift_movement(throttle, steering, delta)

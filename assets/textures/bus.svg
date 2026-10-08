@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1536" height="1024" viewBox="0 0 1536 1024">
+  <!--
+    Godot BoxMesh UV layout (3x2 grid, one 512px cell per face):
+      row 0: +Z rear      | +X right side | -Z front
+      row 1: -X left side | +Y roof       | -Y underside
+    The bus mesh is scaled 2x along Z, so side art is authored at 1024x512
+    and squashed horizontally, and roof art at 512x1024 squashed vertically.
+  -->
+  <defs>
+    <g id="flower">
+      <circle cx="0" cy="-22" r="18"/>
+      <circle cx="21" cy="-7" r="18"/>
+      <circle cx="13" cy="18" r="18"/>
+      <circle cx="-13" cy="18" r="18"/>
+      <circle cx="-21" cy="-7" r="18"/>
+      <circle cx="0" cy="0" r="12" fill="#ffd23f"/>
+    </g>
+    <g id="wheel">
+      <circle r="72" fill="#222"/>
+      <circle r="44" fill="#bbb"/>
+      <circle r="16" fill="#666"/>
+    </g>
+
+    <!-- Side, 1024x512, front of the bus on the right -->
+    <g id="side">
+      <rect width="1024" height="512" fill="#2a9d8f"/>
+      <rect width="1024" height="236" fill="#f4ecd8"/>
+      <rect x="60" y="50" width="150" height="130" rx="18" fill="#9fd8f0" stroke="#3b3b3b" stroke-width="8"/>
+      <rect x="235" y="50" width="150" height="130" rx="18" fill="#9fd8f0" stroke="#3b3b3b" stroke-width="8"/>
+      <rect x="410" y="50" width="150" height="130" rx="18" fill="#9fd8f0" stroke="#3b3b3b" stroke-width="8"/>
+      <rect x="585" y="50" width="150" height="130" rx="18" fill="#9fd8f0" stroke="#3b3b3b" stroke-width="8"/>
+      <!-- cab door and window -->
+      <rect x="790" y="40" width="190" height="400" rx="14" fill="none" stroke="#264653" stroke-width="6"/>
+      <rect x="810" y="55" width="150" height="125" rx="18" fill="#9fd8f0" stroke="#3b3b3b" stroke-width="8"/>
+      <rect x="805" y="270" width="40" height="12" rx="6" fill="#bbb"/>
+      <rect y="236" width="1024" height="22" fill="#e76f51"/>
+      <rect y="258" width="1024" height="14" fill="#f4a261"/>
+      <use xlink:href="#flower" transform="translate(420 330)" fill="#ff5d8f"/>
+      <use xlink:href="#flower" transform="translate(520 380) scale(0.7)" fill="#c77dff"/>
+      <use xlink:href="#flower" transform="translate(620 320) scale(0.9)" fill="#ffd23f"/>
+      <use xlink:href="#flower" transform="translate(700 400) scale(0.6)" fill="#ff8c42"/>
+      <use xlink:href="#wheel" transform="translate(220 430)"/>
+      <use xlink:href="#wheel" transform="translate(860 430)"/>
+      <rect width="1024" height="512" fill="none" stroke="#264653" stroke-width="10"/>
+    </g>
+
+    <!-- Front, 512x512: split windshield, VW-style V, headlights, peace emblem -->
+    <g id="front">
+      <rect width="512" height="512" fill="#2a9d8f"/>
+      <polygon points="0,0 512,0 512,240 256,400 0,240" fill="#f4ecd8"/>
+      <rect x="36" y="44" width="212" height="160" rx="22" fill="#9fd8f0" stroke="#3b3b3b" stroke-width="8"/>
+      <rect x="264" y="44" width="212" height="160" rx="22" fill="#9fd8f0" stroke="#3b3b3b" stroke-width="8"/>
+      <g transform="translate(256 300)" fill="none" stroke="#264653" stroke-width="12" stroke-linecap="round">
+        <circle r="56"/>
+        <line x1="0" y1="-56" x2="0" y2="56"/>
+        <line x1="0" y1="0" x2="-40" y2="40"/>
+        <line x1="0" y1="0" x2="40" y2="40"/>
+      </g>
+      <circle cx="80" cy="370" r="44" fill="#fff6c8" stroke="#888" stroke-width="10"/>
+      <circle cx="432" cy="370" r="44" fill="#fff6c8" stroke="#888" stroke-width="10"/>
+      <use xlink:href="#flower" transform="translate(170 440) scale(0.6)" fill="#ff5d8f"/>
+      <use xlink:href="#flower" transform="translate(342 440) scale(0.6)" fill="#c77dff"/>
+      <rect x="10" y="470" width="492" height="30" rx="10" fill="#c0c0c0" stroke="#666" stroke-width="4"/>
+      <rect width="512" height="512" fill="none" stroke="#264653" stroke-width="10"/>
+    </g>
+
+    <!-- Rear, 512x512: rear window, engine louvres, tail lights, plate -->
+    <g id="rear">
+      <rect width="512" height="512" fill="#2a9d8f"/>
+      <rect width="512" height="236" fill="#f4ecd8"/>
+      <rect x="110" y="60" width="292" height="120" rx="20" fill="#9fd8f0" stroke="#3b3b3b" stroke-width="8"/>
+      <rect y="236" width="512" height="22" fill="#e76f51"/>
+      <rect y="258" width="512" height="14" fill="#f4a261"/>
+      <g stroke="#1d6b62" stroke-width="10" stroke-linecap="round">
+        <line x1="176" y1="300" x2="336" y2="300"/>
+        <line x1="176" y1="325" x2="336" y2="325"/>
+        <line x1="176" y1="350" x2="336" y2="350"/>
+        <line x1="176" y1="375" x2="336" y2="375"/>
+      </g>
+      <rect x="30" y="290" width="44" height="100" rx="14" fill="#e63946" stroke="#7a1c22" stroke-width="5"/>
+      <rect x="438" y="290" width="44" height="100" rx="14" fill="#e63946" stroke="#7a1c22" stroke-width="5"/>
+      <rect x="196" y="400" width="120" height="50" rx="6" fill="#ffd23f" stroke="#3b3b3b" stroke-width="5"/>
+      <g transform="translate(256 425)" fill="none" stroke="#3b3b3b" stroke-width="4">
+        <circle r="17"/>
+        <line x1="0" y1="-17" x2="0" y2="17"/>
+        <line x1="0" y1="0" x2="-12" y2="12"/>
+        <line x1="0" y1="0" x2="12" y2="12"/>
+      </g>
+      <use xlink:href="#flower" transform="translate(105 430) scale(0.6)" fill="#ff8c42"/>
+      <use xlink:href="#flower" transform="translate(407 430) scale(0.6)" fill="#ff5d8f"/>
+      <rect x="10" y="470" width="492" height="30" rx="10" fill="#c0c0c0" stroke="#666" stroke-width="4"/>
+      <rect width="512" height="512" fill="none" stroke="#264653" stroke-width="10"/>
+    </g>
+
+    <!-- Roof, 512x1024: rear at the top, front at the bottom; rack with a surfboard -->
+    <g id="roof">
+      <rect width="512" height="1024" fill="#f4ecd8"/>
+      <rect x="20" y="20" width="472" height="984" rx="30" fill="none" stroke="#2a9d8f" stroke-width="16"/>
+      <g stroke="#7a4a24" stroke-width="14" stroke-linecap="round">
+        <line x1="90" y1="200" x2="90" y2="820"/>
+        <line x1="422" y1="200" x2="422" y2="820"/>
+        <line x1="90" y1="240" x2="422" y2="240"/>
+        <line x1="90" y1="400" x2="422" y2="400"/>
+        <line x1="90" y1="620" x2="422" y2="620"/>
+        <line x1="90" y1="780" x2="422" y2="780"/>
+      </g>
+      <ellipse cx="256" cy="510" rx="80" ry="360" fill="#ffd23f" stroke="#c77700" stroke-width="8"/>
+      <rect x="244" y="160" width="24" height="700" fill="#e76f51"/>
+      <use xlink:href="#flower" transform="translate(256 510) scale(1.4)" fill="#ff5d8f"/>
+    </g>
+  </defs>
+
+  <!-- row 0 -->
+  <use xlink:href="#rear" x="0" y="0"/>
+  <use xlink:href="#side" transform="translate(512 0) scale(0.5 1)"/>
+  <use xlink:href="#front" x="1024" y="0"/>
+  <!-- row 1: left side is the right side mirrored so the cab is still at the front -->
+  <use xlink:href="#side" transform="translate(512 512) scale(-0.5 1)"/>
+  <use xlink:href="#roof" transform="translate(512 512) scale(1 0.5)"/>
+  <rect x="1024" y="512" width="512" height="512" fill="#2b2b2b"/>
+</svg>

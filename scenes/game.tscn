@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://tn4sgoqfsye"]
+[gd_scene format=3 uid="uid://tn4sgoqfsye"]
 
 [ext_resource type="PackedScene" uid="uid://37eowkixb3my" path="res://scenes/bus.tscn" id="1_lbhrr"]
-[ext_resource type="Texture2D" uid="uid://caa00mf4vsrs5" path="res://assets/textures/wood_chips_plate-color.png" id="2_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://d25vi512drp1q" path="res://assets/textures/texturefloor.png" id="2_u5sy4"]
 [ext_resource type="Script" uid="uid://dw5a3rm7himnv" path="res://scripts/camera_pivot.gd" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://tfuxuu3bmdnl" path="res://scenes/wall.tscn" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://dxl2x33sggdsf" path="res://scenes/redneck.tscn" id="6_p57ef"]
@@ -9,85 +9,96 @@
 [ext_resource type="PackedScene" uid="uid://dmpn3mg06ldfi" path="res://scenes/pedestrian.tscn" id="7_u5sy4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_uwrxv"]
+size = Vector3(1, 0.001, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnu2h"]
-albedo_texture = ExtResource("2_yqjtg")
+albedo_texture = ExtResource("2_u5sy4")
+uv1_scale = Vector3(3.04, 3.04, 3.04)
+uv1_offset = Vector3(0, 3, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8cj0n"]
 
-[node name="game" type="Node3D"]
+[sub_resource type="Environment" id="Environment_amb"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.25
 
-[node name="objects" type="Node3D" parent="."]
+[node name="game" type="Node3D" unique_id=1003265745]
 
-[node name="bus" parent="objects" instance=ExtResource("1_lbhrr")]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0.5, 0)
+[node name="objects" type="Node3D" parent="." unique_id=450424504]
 
-[node name="Floor" type="StaticBody3D" parent="objects"]
+[node name="bus" parent="objects" unique_id=1365468162 instance=ExtResource("1_lbhrr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
-[node name="floor" type="MeshInstance3D" parent="objects/Floor"]
-transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, -60, 0)
+[node name="Floor" type="StaticBody3D" parent="objects" unique_id=1755209363]
+
+[node name="floor" type="MeshInstance3D" parent="objects/Floor" unique_id=838529073]
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, -0.05999756, 0)
 mesh = SubResource("BoxMesh_uwrxv")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_lnu2h")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="objects/Floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="objects/Floor" unique_id=2131685181]
 transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, -60, 0)
 shape = SubResource("BoxShape3D_8cj0n")
 
-[node name="camera_pivot" type="Node3D" parent="objects" node_paths=PackedStringArray("target_node")]
+[node name="camera_pivot" type="Node3D" parent="objects" unique_id=190141392 node_paths=PackedStringArray("target_node")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.52783, 0)
 script = ExtResource("3_lnu2h")
 target_node = NodePath("../bus")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="objects/camera_pivot"]
-transform = Transform3D(1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 0.5, 0)
-spring_length = 12.0
+[node name="SpringArm3D" type="SpringArm3D" parent="objects/camera_pivot" unique_id=1431613977]
+transform = Transform3D(1, 0, 0, 0, 0.978148, 0.207912, 0, -0.207912, 0.978148, 0, 0, 0)
+spring_length = 5.5
 margin = 0.05
 
-[node name="player_camera" type="Camera3D" parent="objects/camera_pivot/SpringArm3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314568, 5.26902)
+[node name="player_camera" type="Camera3D" parent="objects/camera_pivot/SpringArm3D" unique_id=359802160]
+fov = 70.0
 
-[node name="pedestrian" parent="objects" instance=ExtResource("7_u5sy4")]
+[node name="pedestrian" parent="objects" unique_id=899384970 instance=ExtResource("7_u5sy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0023, 0.5, -35.8726)
 visible = false
 
-[node name="pedestrian2" parent="objects" instance=ExtResource("7_u5sy4")]
+[node name="pedestrian2" parent="objects" unique_id=899424905 instance=ExtResource("7_u5sy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5144, 0.5, 8.98774)
 visible = false
 
-[node name="Wall" parent="objects" instance=ExtResource("5_iywne")]
+[node name="Wall" parent="objects" unique_id=1941975007 instance=ExtResource("5_iywne")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 1, 0)
 
-[node name="Wall2" parent="objects" instance=ExtResource("5_iywne")]
+[node name="Wall2" parent="objects" unique_id=353888304 instance=ExtResource("5_iywne")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 1, 0)
 
-[node name="Wall3" parent="objects" instance=ExtResource("5_iywne")]
+[node name="Wall3" parent="objects" unique_id=742014932 instance=ExtResource("5_iywne")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, -60)
 
-[node name="Wall4" parent="objects" instance=ExtResource("5_iywne")]
+[node name="Wall4" parent="objects" unique_id=1860216999 instance=ExtResource("5_iywne")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 60)
 
-[node name="Redneck" parent="objects" instance=ExtResource("6_p57ef")]
+[node name="Redneck" parent="objects" unique_id=716294263 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -25)
 
-[node name="Redneck2" parent="objects" instance=ExtResource("6_p57ef")]
+[node name="Redneck2" parent="objects" unique_id=1189021312 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -27)
 
-[node name="Redneck3" parent="objects" instance=ExtResource("6_p57ef")]
+[node name="Redneck3" parent="objects" unique_id=911989863 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -29)
 
-[node name="Redneck5" parent="objects" instance=ExtResource("6_p57ef")]
+[node name="Redneck5" parent="objects" unique_id=728348107 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -29)
 
-[node name="Redneck6" parent="objects" instance=ExtResource("6_p57ef")]
+[node name="Redneck6" parent="objects" unique_id=688040934 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -29)
 
-[node name="Redneck4" parent="objects" instance=ExtResource("6_p57ef")]
+[node name="Redneck4" parent="objects" unique_id=1690261924 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -27)
 
-[node name="Ramp1" parent="objects" instance=ExtResource("7_gee14")]
+[node name="Ramp1" parent="objects" unique_id=377729119 instance=ExtResource("7_gee14")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -12.0613)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_amb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1811897592]
 transform = Transform3D(0.8788, -0.351218, 0.323041, -0.156735, 0.42696, 0.890584, -0.450715, -0.833277, 0.320164, 0, 8.62645, 8.63623)
 shadow_enabled = true
