@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://c8bldng0hippe"]
 
 [ext_resource type="Script" uid="uid://bjqte8xnvx8vj" path="res://scripts/building.gd" id="1_bldg"]
+[ext_resource type="PackedScene" uid="uid://csck3u0dvxtm3" path="res://scenes/particles_building_debris.tscn" id="2_debris"]
 
 [node name="Building" type="Node3D"]
 script = ExtResource("1_bldg")
+particles_debris = ExtResource("2_debris")

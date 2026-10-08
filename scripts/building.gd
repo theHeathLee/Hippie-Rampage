@@ -34,6 +34,8 @@ extends Node3D
 # How fast the building starts tipping over: roughly the top's speed as a
 # fraction of the bus's speed.
 @export var topple_strength: float = 1.0
+# Burst of debris thrown out when the building collapses.
+@export var particles_debris: PackedScene
 
 const BUILDING_TEXTURE = preload("res://assets/textures/building.svg")
 
@@ -102,11 +104,23 @@ func _rebuild():
 				add_child(block)
 				_blocks.append(block)
 
+func _spawn_debris(at: Vector3):
+	if not particles_debris:
+		return
+	var debris: GPUParticles3D = particles_debris.instantiate()
+	get_tree().current_scene.add_child(debris)
+	debris.global_position = at
+	debris.emitting = true
+	debris.finished.connect(debris.queue_free)
+
 func _on_area_body_entered(body: Node3D) -> void:
 	if _collapsed or not body.is_in_group("player"):
 		return
 	_collapsed = true
 	Score.add_hit()
+	# Debris where the bus hits, and a second burst from the base as it comes down.
+	_spawn_debris(body.global_position.lerp(global_position, 0.5) + Vector3.UP)
+	_spawn_debris(global_position + Vector3.UP)
 
 	var hit_velocity: Vector3 = body.velocity
 	hit_velocity.y = 0.0

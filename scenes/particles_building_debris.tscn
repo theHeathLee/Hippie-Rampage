@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://csck3u0dvxtm3"]
+
+[sub_resource type="Curve" id="Curve_fon00"]
+_data = [Vector2(0, 1), 0.0, -0.0981342, 0, 0, Vector2(1, 0.52809), -1.23423, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0owk4"]
+curve = SubResource("Curve_fon00")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fon00"]
+emission_shape_scale = Vector3(0.5, 0.5, 0.5)
+emission_shape = 3
+emission_box_extents = Vector3(2, 2, 2)
+direction = Vector3(0, 1, 0)
+spread = 36.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, -3, 0)
+damping_min = 1.0
+damping_max = 1.0
+scale_min = 0.8
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_0owk4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0owk4"]
+albedo_color = Color(0.243525, 0.119851, 0.0821818, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_q6h6i"]
+material = SubResource("StandardMaterial3D_0owk4")
+radius = 0.2
+height = 0.4
+radial_segments = 16
+rings = 8
+
+[node name="Particles_BuildingDebris" type="GPUParticles3D"]
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_fon00")
+draw_pass_1 = SubResource("SphereMesh_q6h6i")
