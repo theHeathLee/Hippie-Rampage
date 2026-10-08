@@ -22,6 +22,10 @@ const DRIFT_TRACTION = 1.2
 const DRIFT_TURN_SPEED = 3.5
 const BRAKE_DECELERATION = 12.0
 
+# --- Push Constants ---
+# How hard the bus shoves loose physics objects (rubble, knocked-over rednecks), per unit of speed.
+const PUSH_STRENGTH = 0.15
+
 # --- Variables ---
 var speed = 0.0
 var is_drifting = false
@@ -66,6 +70,15 @@ func _physics_process(delta: float):
 		engine_sound.stop()
 
 	move_and_slide()
+	push_loose_bodies()
+
+# Shove unfrozen rigid bodies out of the way instead of stopping dead against them.
+func push_loose_bodies():
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var body = collision.get_collider()
+		if body is RigidBody3D and not body.freeze:
+			body.apply_central_impulse(-collision.get_normal() * abs(speed) * PUSH_STRENGTH * body.mass)
 
 # --- Movement Functions ---
 
