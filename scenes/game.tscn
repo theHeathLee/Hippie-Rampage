@@ -1,93 +1,245 @@
-[gd_scene load_steps=11 format=3 uid="uid://tn4sgoqfsye"]
+[gd_scene format=3 uid="uid://tn4sgoqfsye"]
 
 [ext_resource type="PackedScene" uid="uid://37eowkixb3my" path="res://scenes/bus.tscn" id="1_lbhrr"]
-[ext_resource type="Texture2D" uid="uid://caa00mf4vsrs5" path="res://assets/textures/wood_chips_plate-color.png" id="2_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://d25vi512drp1q" path="res://assets/textures/texturefloor.png" id="2_u5sy4"]
 [ext_resource type="Script" uid="uid://dw5a3rm7himnv" path="res://scripts/camera_pivot.gd" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://tfuxuu3bmdnl" path="res://scenes/wall.tscn" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://dxl2x33sggdsf" path="res://scenes/redneck.tscn" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://mkx0lg058avs" path="res://scenes/ramp_1.tscn" id="7_gee14"]
 [ext_resource type="PackedScene" uid="uid://dmpn3mg06ldfi" path="res://scenes/pedestrian.tscn" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://c8bldng0hippe" path="res://scenes/building.tscn" id="8_bldg"]
+[ext_resource type="PackedScene" uid="uid://b3prsn0hippe" path="res://scenes/person.tscn" id="9_prsn"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_uwrxv"]
+size = Vector3(1, 0.001, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnu2h"]
-albedo_texture = ExtResource("2_yqjtg")
+albedo_texture = ExtResource("2_u5sy4")
+uv1_scale = Vector3(3.04, 3.04, 3.04)
+uv1_offset = Vector3(0, 3, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8cj0n"]
 
-[node name="game" type="Node3D"]
+[sub_resource type="Environment" id="Environment_amb"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.25
 
-[node name="objects" type="Node3D" parent="."]
+[node name="game" type="Node3D" unique_id=1003265745]
 
-[node name="bus" parent="objects" instance=ExtResource("1_lbhrr")]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0.5, 0)
+[node name="objects" type="Node3D" parent="." unique_id=450424504]
 
-[node name="Floor" type="StaticBody3D" parent="objects"]
+[node name="bus" parent="objects" unique_id=1365468162 instance=ExtResource("1_lbhrr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
-[node name="floor" type="MeshInstance3D" parent="objects/Floor"]
-transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, -60, 0)
+[node name="Floor" type="StaticBody3D" parent="objects" unique_id=1755209363]
+
+[node name="floor" type="MeshInstance3D" parent="objects/Floor" unique_id=838529073]
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, -0.05999756, 0)
 mesh = SubResource("BoxMesh_uwrxv")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_lnu2h")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="objects/Floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="objects/Floor" unique_id=2131685181]
 transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, -60, 0)
 shape = SubResource("BoxShape3D_8cj0n")
 
-[node name="camera_pivot" type="Node3D" parent="objects" node_paths=PackedStringArray("target_node")]
+[node name="camera_pivot" type="Node3D" parent="objects" unique_id=190141392 node_paths=PackedStringArray("target_node")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.52783, 0)
 script = ExtResource("3_lnu2h")
 target_node = NodePath("../bus")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="objects/camera_pivot"]
-transform = Transform3D(1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 0.5, 0)
-spring_length = 12.0
+[node name="SpringArm3D" type="SpringArm3D" parent="objects/camera_pivot" unique_id=1431613977]
+transform = Transform3D(1, 0, 0, 0, 0.978148, 0.207912, 0, -0.207912, 0.978148, 0, 0, 0)
+spring_length = 5.5
 margin = 0.05
 
-[node name="player_camera" type="Camera3D" parent="objects/camera_pivot/SpringArm3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314568, 5.26902)
+[node name="player_camera" type="Camera3D" parent="objects/camera_pivot/SpringArm3D" unique_id=359802160]
+fov = 70.0
 
-[node name="pedestrian" parent="objects" instance=ExtResource("7_u5sy4")]
+[node name="pedestrian" parent="objects" unique_id=899384970 instance=ExtResource("7_u5sy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0023, 0.5, -35.8726)
 visible = false
 
-[node name="pedestrian2" parent="objects" instance=ExtResource("7_u5sy4")]
+[node name="pedestrian2" parent="objects" unique_id=899424905 instance=ExtResource("7_u5sy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5144, 0.5, 8.98774)
 visible = false
 
-[node name="Wall" parent="objects" instance=ExtResource("5_iywne")]
+[node name="Wall" parent="objects" unique_id=1941975007 instance=ExtResource("5_iywne")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 1, 0)
 
-[node name="Wall2" parent="objects" instance=ExtResource("5_iywne")]
+[node name="Wall2" parent="objects" unique_id=353888304 instance=ExtResource("5_iywne")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 1, 0)
 
-[node name="Wall3" parent="objects" instance=ExtResource("5_iywne")]
+[node name="Wall3" parent="objects" unique_id=742014932 instance=ExtResource("5_iywne")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, -60)
 
-[node name="Wall4" parent="objects" instance=ExtResource("5_iywne")]
+[node name="Wall4" parent="objects" unique_id=1860216999 instance=ExtResource("5_iywne")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 60)
 
-[node name="Redneck" parent="objects" instance=ExtResource("6_p57ef")]
+[node name="Redneck" parent="objects" unique_id=716294263 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -25)
 
-[node name="Redneck2" parent="objects" instance=ExtResource("6_p57ef")]
+[node name="Redneck2" parent="objects" unique_id=1189021312 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -27)
 
-[node name="Redneck3" parent="objects" instance=ExtResource("6_p57ef")]
+[node name="Redneck3" parent="objects" unique_id=911989863 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -29)
 
-[node name="Redneck5" parent="objects" instance=ExtResource("6_p57ef")]
+[node name="Redneck5" parent="objects" unique_id=728348107 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -29)
 
-[node name="Redneck6" parent="objects" instance=ExtResource("6_p57ef")]
+[node name="Redneck6" parent="objects" unique_id=688040934 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -29)
 
-[node name="Redneck4" parent="objects" instance=ExtResource("6_p57ef")]
+[node name="Redneck4" parent="objects" unique_id=1690261924 instance=ExtResource("6_p57ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -27)
 
-[node name="Ramp1" parent="objects" instance=ExtResource("7_gee14")]
+[node name="Ramp1" parent="objects" unique_id=377729119 instance=ExtResource("7_gee14")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -12.0613)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="Building" parent="objects" instance=ExtResource("8_bldg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -18)
+floors = 5
+color = Color(1.0, 0.75, 0.8, 1)
+
+[node name="Building2" parent="objects" instance=ExtResource("8_bldg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -6)
+floors = 6
+color = Color(0.8, 0.75, 1.0, 1)
+
+[node name="Building3" parent="objects" instance=ExtResource("8_bldg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -17)
+floors = 4
+color = Color(0.7, 1.0, 0.8, 1)
+
+[node name="Building4" parent="objects" instance=ExtResource("8_bldg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 18)
+floors = 7
+color = Color(1.0, 0.85, 0.65, 1)
+
+[node name="Building5" parent="objects" instance=ExtResource("8_bldg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 18)
+floors = 5
+color = Color(0.7, 0.88, 1.0, 1)
+
+[node name="people" type="Node3D" parent="objects"]
+
+[node name="Person1" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(0.9923, 0, -0.1242, 0, 1, 0, 0.1242, 0, 0.9923, -15.9, 0, -31.4)
+look_seed = 11
+
+[node name="Person2" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(0.7372, 0, 0.6756, 0, 1, 0, -0.6756, 0, 0.7372, 13.6, 0, -38.5)
+outfit = 1
+look_seed = 12
+
+[node name="Person3" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.8706, 0, 0.4921, 0, 1, 0, -0.4921, 0, -0.8706, -39.8, 0, 0.7)
+outfit = 2
+look_seed = 13
+
+[node name="Person4" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(0.0449, 0, -0.999, 0, 1, 0, 0.999, 0, 0.0449, -41.6, 0, -6.0)
+look_seed = 14
+
+[node name="Person5" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(0.5777, 0, 0.8163, 0, 1, 0, -0.8163, 0, 0.5777, -38.7, 0, -36.8)
+outfit = 1
+look_seed = 15
+
+[node name="Person6" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.9976, 0, 0.0693, 0, 1, 0, -0.0693, 0, -0.9976, -6.8, 0, 29.4)
+outfit = 2
+look_seed = 16
+
+[node name="Person7" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(0.9698, 0, 0.2439, 0, 1, 0, -0.2439, 0, 0.9698, -33.9, 0, -24.9)
+look_seed = 17
+
+[node name="Person8" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.4915, 0, -0.8709, 0, 1, 0, 0.8709, 0, -0.4915, 11.5, 0, 40.3)
+outfit = 1
+look_seed = 18
+
+[node name="Person9" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(0.0914, 0, -0.9958, 0, 1, 0, 0.9958, 0, 0.0914, 6.9, 0, -9.3)
+outfit = 2
+look_seed = 19
+
+[node name="Person10" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.8966, 0, -0.4429, 0, 1, 0, 0.4429, 0, -0.8966, 42.9, 0, -40.8)
+look_seed = 20
+
+[node name="Person11" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(0.7092, 0, -0.705, 0, 1, 0, 0.705, 0, 0.7092, 32.3, 0, -18.9)
+outfit = 1
+look_seed = 21
+
+[node name="Person12" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.3899, 0, 0.9209, 0, 1, 0, -0.9209, 0, -0.3899, -32.0, 0, -34.4)
+outfit = 2
+look_seed = 22
+
+[node name="Person13" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.337, 0, -0.9415, 0, 1, 0, 0.9415, 0, -0.337, -17.2, 0, 28.5)
+look_seed = 23
+
+[node name="Person14" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.8293, 0, -0.5588, 0, 1, 0, 0.5588, 0, -0.8293, -28.7, 0, 7.3)
+outfit = 1
+look_seed = 24
+
+[node name="Person15" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.8766, 0, -0.4812, 0, 1, 0, 0.4812, 0, -0.8766, 12.5, 0, -11.5)
+outfit = 2
+look_seed = 25
+
+[node name="Person16" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.9624, 0, 0.2717, 0, 1, 0, -0.2717, 0, -0.9624, 4.3, 0, -39.3)
+look_seed = 26
+
+[node name="Person17" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(0.5357, 0, -0.8444, 0, 1, 0, 0.8444, 0, 0.5357, -39.6, 0, -26.5)
+outfit = 1
+look_seed = 27
+
+[node name="Person18" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(0.9402, 0, -0.3406, 0, 1, 0, 0.3406, 0, 0.9402, 16.2, 0, -6.5)
+outfit = 2
+look_seed = 28
+
+[node name="Person19" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.9868, 0, 0.162, 0, 1, 0, -0.162, 0, -0.9868, -16.7, 0, 7.7)
+look_seed = 29
+
+[node name="Person20" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.5136, 0, -0.858, 0, 1, 0, 0.858, 0, -0.5136, -4.2, 0, -18.0)
+outfit = 1
+look_seed = 30
+
+[node name="Person21" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(0.9282, 0, 0.372, 0, 1, 0, -0.372, 0, 0.9282, 26.5, 0, 17.9)
+outfit = 2
+look_seed = 31
+
+[node name="Person22" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.3001, 0, -0.9539, 0, 1, 0, 0.9539, 0, -0.3001, -23.0, 0, 6.7)
+look_seed = 32
+
+[node name="Person23" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(-0.6023, 0, -0.7983, 0, 1, 0, 0.7983, 0, -0.6023, 2.3, 0, 33.8)
+outfit = 1
+look_seed = 33
+
+[node name="Person24" parent="objects/people" instance=ExtResource("9_prsn")]
+transform = Transform3D(0.9991, 0, -0.0434, 0, 1, 0, 0.0434, 0, 0.9991, 20.7, 0, -19.1)
+outfit = 2
+look_seed = 34
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_amb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1811897592]
 transform = Transform3D(0.8788, -0.351218, 0.323041, -0.156735, 0.42696, 0.890584, -0.450715, -0.833277, 0.320164, 0, 8.62645, 8.63623)
 shadow_enabled = true

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b3prsn0hippe"]
+
+[ext_resource type="Script" uid="uid://df1ap5gfyvcda" path="res://scripts/person.gd" id="1_prsn"]
+
+[node name="Person" type="RigidBody3D"]
+script = ExtResource("1_prsn")

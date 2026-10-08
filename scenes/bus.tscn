@@ -1,16 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://37eowkixb3my"]
+[gd_scene load_steps=9 format=3 uid="uid://37eowkixb3my"]
 
 [ext_resource type="Script" uid="uid://cielph2ssxnwp" path="res://scripts/bus.gd" id="1_38u8m"]
 [ext_resource type="AudioStream" uid="uid://4nle5fbmu464" path="res://assets/audio/motor.ogg" id="2_6x00d"]
 [ext_resource type="AudioStream" uid="uid://d3drtv7ll8fjb" path="res://assets/audio/drift.ogg" id="3_5urgl"]
 [ext_resource type="AudioStream" uid="uid://dkqtxc8chkj76" path="res://assets/audio/boost.ogg" id="4_uur5s"]
+[ext_resource type="Texture2D" uid="uid://3q40n82r8jjh" path="res://assets/textures/bus.svg" id="5_bustx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yqjtg"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8cj0n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uwrxv"]
-albedo_color = Color(0.220136, 0.497346, 0.987794, 1)
+albedo_texture = ExtResource("5_bustx")
 
 [node name="bus" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)

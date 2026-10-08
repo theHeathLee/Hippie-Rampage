@@ -1,24 +1,35 @@
 extends Node3D
 
+# GTA-style chase camera: sits low behind the vehicle and swings round
+# to follow its heading with a little lag.
+
 # --- Camera Tracking Settings ---
-# Assign your Cube node here in the Inspector!
-@export var target_node: CharacterBody3D 
-# Smooth speed: A smaller number = more lag/damping. (e.g., 0.1)
-@export_range(0.01, 1.0) var smooth_speed: float = 0.1 
+# Assign the bus here in the Inspector.
+@export var target_node: CharacterBody3D
+# Position follow: smaller = more lag/damping.
+@export_range(0.01, 1.0) var smooth_speed: float = 0.2
+# Heading follow: smaller = camera swings round more lazily in turns and drifts.
+@export_range(0.01, 1.0) var rotation_speed: float = 0.06
+# How far above the vehicle's origin the camera aims.
+@export var height_offset: float = 1.2
 
-func _physics_process(delta: float):
+@onready var spring_arm: SpringArm3D = $SpringArm3D
+
+func _ready():
 	if target_node:
-		# 1. Calculate the target position
-		# We target the cube's position directly.
-		var target_position = target_node.global_position
+		# Don't let the spring arm collide with the bus itself.
+		spring_arm.add_excluded_object(target_node.get_rid())
+		# Start behind the bus instead of swinging round on the first frames.
+		global_position = target_node.global_position + Vector3.UP * height_offset
+		rotation.y = target_node.global_rotation.y
 
-		# 2. Lerp the CameraPivot's position towards the target
-		# This smoothly drags the entire camera system (Pivot, SpringArm, Camera)
+func _physics_process(_delta: float):
+	if target_node:
+		# 1. Smoothly drag the pivot to a point just above the bus.
+		var target_position = target_node.global_position + Vector3.UP * height_offset
 		global_position = global_position.lerp(target_position, smooth_speed)
 
-		# 3. DO NOT track rotation here. The CameraPivot's rotation remains fixed.
-		
-		# 4. Manually enforce the camera's angle (to look down at the car).
-		# You only need this if the camera's initial rotation was not set, but 
-		# it's safer to set the desired angle (e.g., X=-30 degrees) on the CameraPivot node itself.
-		# If your CameraPivot's rotation is already fixed, this is unnecessary.extends Node3D
+		# 2. Turn the pivot to match the bus's heading. The spring arm points
+		#    out of the pivot's +Z, and the bus drives along -Z, so this keeps
+		#    the camera behind it.
+		rotation.y = lerp_angle(rotation.y, target_node.global_rotation.y, rotation_speed)
