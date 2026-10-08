@@ -18,12 +18,12 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		
 		if body.is_in_group("player"):
 			Score.add_hit()
+			death_timer.start()
 			
 		# We use a random vector so they don't always spin the same way
 		#var random_spin = Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1))
 		#apply_torque_impulse(random_spin * 20.0)
 		
-		#death_timer.start()
 
 
 func _on_death_timer_timeout() -> void:
